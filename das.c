@@ -3,8 +3,8 @@
  * A totally overdesigned method of printing character
  * buffers to the screen.
  *
- * In theory, this code can be used to implement an 
- * ascii style game that runs in a command line. 
+ * In theory, this code can be used to implement an
+ * ascii style game that runs in a command line.
  * Specifically, this would be the 'rendering engine'.
  * It does not handle user input, sounds (bleeps) or
  * what have you.
@@ -51,10 +51,11 @@ SCType* SCType_init(SCType* type, void (*dealloc)(SCType*))
 }
 
 
-void SCType_retain(SCType* type)
+SCType* SCType_retain(SCType* type)
 {
 	_SCType* self = (_SCType*)type;
 	self->ref_cnt++;
+	return type;
 }
 
 
@@ -80,7 +81,7 @@ struct _ScreenBuffer {
 
 ScreenBuffer* ScreenBuffer_alloc()
 {
-	ScreenBuffer* sb = 
+	ScreenBuffer* sb =
 		(ScreenBuffer*)xmalloc(sizeof(ScreenBuffer));
 	if (sb != NULL)
 		memset(sb, 0, sizeof(*sb));
@@ -158,7 +159,7 @@ int main(int argc, char* argv[])
 	ScreenBuffer_set(sb, WIDTH/2+2, HEIGHT/2, '-');
 	ScreenBuffer_set(sb, WIDTH/2, HEIGHT/2-1, '|');
 	ScreenBuffer_set(sb, WIDTH/2, HEIGHT/2+1, '|');
-	
+
 	printf("Welcome to das...\n");
 	ScreenBuffer_write(sb, stdout);
 	printf("All done!\n");
